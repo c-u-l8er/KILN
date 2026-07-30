@@ -59,10 +59,20 @@ defmodule Kiln do
       """
   end
 
+  # Resolved in the module body, exactly as each schema resolves its own
+  # `@schema_prefix`, so this reports the prefix the tables were compiled with.
+  # A runtime `get_env/3` here could report a prefix the tables are not actually
+  # in, and an accessor able to disagree with the thing it describes is worse
+  # than no accessor at all.
+  @schema_prefix Application.compile_env(:kiln, :schema_prefix, "fleet")
+
   @doc """
   The Postgres schema KILN's tables live in. See the module doc for why this
   defaults to "fleet" rather than "kiln".
+
+  A host that changes `:schema_prefix` must recompile `:kiln` for this to move
+  — which is the same condition the schemas themselves are under.
   """
   @spec schema_prefix() :: String.t()
-  def schema_prefix, do: Application.get_env(:kiln, :schema_prefix, "fleet")
+  def schema_prefix, do: @schema_prefix
 end

@@ -279,7 +279,7 @@ defmodule Kiln.Skills.Crystallizer do
       end
 
     intro <>
-      "Crystallized from an OS-011 InteractionTrace against &body.#{subtype} " <>
+      "Crystallized from a GRASP InteractionTrace against &body.#{subtype} " <>
       "(#{length(edges)} recorded edges). Replay requires a conforming " <>
       "&body.#{subtype} provider and fresh authorization for any destructive edges."
   end
